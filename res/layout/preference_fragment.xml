@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preference_fragment_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/preference_fragment_content"
+        android:orientation="vertical"
+        style="Widget.ListView"
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <!-- Content will go here -->
+    </LinearLayout>
+    
+</ScrollView>
