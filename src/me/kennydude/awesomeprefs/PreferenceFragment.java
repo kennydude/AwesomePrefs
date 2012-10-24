@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -32,11 +33,30 @@ import android.widget.ScrollView;
  */
 public class PreferenceFragment extends Fragment {
 	protected List<Preference<?>> preferences = new ArrayList<Preference<?>>();
+	protected List<Integer> activityRequests;
 	
 	public PreferenceFragment(){}
 	
 	public void addPreferencesFromResource(int resource){
 		addPreferencesFromXML(getResources().getXml(resource));
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(activityRequests == null) return;
+		preferences.get(activityRequests.remove(requestCode)).onActivityResult(resultCode, data);
+	}
+	
+	/**
+	 * Starts an activity for a result. Handles setting an requestCode for you
+	 * @param i Intent to launch
+	 * @param whom Who are you?
+	 */
+	public void startActivityForResult(Preference<?> whom, Intent i){
+		if(activityRequests == null) activityRequests = new ArrayList<Integer>();
+		
+		activityRequests.add(preferences.indexOf(whom));
+		super.startActivityForResult(i, activityRequests.size()-1);
 	}
 	
 	@Override
@@ -188,6 +208,11 @@ public class PreferenceFragment extends Fragment {
 			if(pref.Dep != null){
 				if(!findPreference(pref.Dep).isOn()){
 					v.setEnabled(false);
+				}
+			}
+			if(pref.VisibleIf != ""){
+				if(!this.getSharedPreferences().getBoolean(pref.VisibleIf, false)){
+					continue;
 				}
 			}
 			lf.addView(v, params);

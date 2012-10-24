@@ -1,6 +1,7 @@
 package me.kennydude.awesomeprefs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public abstract class Preference<T extends Object> {
 	}
 	
 	public String Class = "";
+	public String VisibleIf = "";
 	
 	String getString(String value, int resId){
 		if(resId != -1){
@@ -120,6 +122,8 @@ public abstract class Preference<T extends Object> {
 		} else if(namespace.equals(AWESOME_NAMESPACE)){ // aprefs:
 			if(key.equals("class")){
 				Class = getString(value, resId);
+			} else if(key.equals("visibleif")){
+				VisibleIf = getString(value, resId);
 			}
 		}
 	}
@@ -234,5 +238,14 @@ public abstract class Preference<T extends Object> {
 	 */
 	protected void onClick(View theView){
 		// By default we do nothing at all
+	}
+
+	/**
+	 * Fired when your activity was returned
+	 * @param resultCode
+	 * @param data
+	 */
+	public void onActivityResult(int resultCode, Intent data) {
+		// Nothing
 	}
 }
