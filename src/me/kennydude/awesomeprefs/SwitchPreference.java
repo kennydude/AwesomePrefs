@@ -41,7 +41,8 @@ public class SwitchPreference extends WidgetPreference<Boolean> {
 	
 	@Override
 	public void onClick(View v){
-		setValue(!Value);
+		Value = !((CompoundButton)v.findViewById(R.id.widget)).isChecked();
+		setValue(Value);
 		((CompoundButton)v.findViewById(R.id.widget)).setChecked(Value);
 	}
 	

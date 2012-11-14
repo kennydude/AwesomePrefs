@@ -36,4 +36,9 @@ public class NullView extends View {
 		}
 	}
 	
+	@Override
+	protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
+		setMeasuredDimension(0, 0);
+	}
+	
 }

@@ -173,7 +173,6 @@ public class PreferenceFragment extends Fragment {
 	public void releaseRefresh(){ noRefresh = false; refreshPreferenceUI(); }
 	public void removeAll(){ preferences.clear(); refreshPreferenceUI(); }
 	
-	@SuppressWarnings("deprecation")
 	void refreshPreferenceUI(){
 		if(noRefresh) return;
 		Log.d("ui", "pref");
@@ -223,8 +222,7 @@ public class PreferenceFragment extends Fragment {
 			}
 			
 			if(pref.needsDivider() && nextDiv){
-				ImageView sep = new ImageView(getActivity());
-				
+				ImageView sep = (ImageView) LayoutInflater.from(getActivity()).inflate(R.layout.preference_divider, null);
 				lf.addView(sep, params);
 			}
 			id++;
