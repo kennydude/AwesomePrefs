@@ -24,4 +24,9 @@ public class JBViewCompat {
 		v.postInvalidateOnAnimation();
 	}
 
+	public static void postOnAnimation(View viewPager,
+			Runnable mEndScrollRunnable) {
+		viewPager.postOnAnimation(mEndScrollRunnable);
+	}
+
 }

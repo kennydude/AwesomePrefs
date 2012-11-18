@@ -1,6 +1,7 @@
 package android.support.v4.view;
 
 import android.os.Build;
+import android.support.v4.view.ViewPager.MyAccessibilityDelegate;
 import android.view.View;
 
 /**
@@ -26,5 +27,21 @@ public class ViewCompat {
 		if(Build.VERSION.SDK_INT >= 16) JBViewCompat.postInvalidateOnAnimation(v);
 		else v.invalidate();
 	}
+
+	public static void setAccessibilityDelegate(ViewPager viewPager,
+			MyAccessibilityDelegate myAccessibilityDelegate) {
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) ICSViewCompat.setAccessibilityDelegate(viewPager, myAccessibilityDelegate);
+	}
+
+	public static void postOnAnimation(View viewPager,
+			Runnable mEndScrollRunnable) {
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) JBViewCompat.postOnAnimation(viewPager, mEndScrollRunnable);
+		else viewPager.postDelayed(mEndScrollRunnable, getFrameTime());
+	}
+	
+	private static final long FAKE_FRAME_TIME = 10;
+	static long getFrameTime() {
+         return FAKE_FRAME_TIME;
+    }
 
 }

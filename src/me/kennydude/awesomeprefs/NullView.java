@@ -27,8 +27,10 @@ public class NullView extends View {
 			parent.removeViewInLayout(this);
 			
 			ViewGroup.LayoutParams layoutParams = getLayoutParams();
-			if(layoutParams != null && replacement.getLayoutParams() != null){
+			if(layoutParams != null && replacement.getLayoutParams() == null){
 				parent.addView(replacement, index, layoutParams);
+			} else if(replacement.getLayoutParams() != null){
+				parent.addView(replacement, index, replacement.getLayoutParams());
 			} else{
 				parent.addView(replacement, index);
 			}
